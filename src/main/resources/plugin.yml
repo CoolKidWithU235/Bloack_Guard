@@ -1,0 +1,11 @@
+name: BorderManager
+version: '${project.version}'
+main: me.coolkidwithu235.bordermanager.BorderManager
+api-version: 1.19
+description: Manages the borders and allows us to travel ourtside in ordrer to explore
+
+commands:
+  rlborders:
+    description: reload the file with the border coordinates
+    usage: /<command>
+
