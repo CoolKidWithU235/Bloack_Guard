@@ -8,14 +8,14 @@ import org.bukkit.entity.Player
 
 // Here the rlborders command is defined
 
-class Commands(val eventHndlr: Events) : CommandExecutor {
+class Commands(val eventHandler: Events) : CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
 
         if (sender is Player) {
             if (label == "rlborders") {
 
-                eventHndlr.updateBrdsFromFile()
+                eventHandler.updateBrdsFromFile()
                 return true
 
             }

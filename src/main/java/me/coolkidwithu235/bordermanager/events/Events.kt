@@ -7,43 +7,45 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import java.io.File
 
-// Brds refers to borders, essentially a collection of 4 Ints x1, y1, x2, y2 that represent the corners of the area
-// x2 > x1 and y2 > y1
+// Brds refers to borders, essentially a collection of 4 Ints x1, z1, x2, z2 that represent the corners of the area
+// x2 > x1 and z2 > z1
 
 class Events : Listener {
 
     val pathToBrds = "./plugins/BorderManager/borders.brd"
     // Allows for a dynamic amount of a predefined amount af ints, in the form of a MutList of IntArray
-    var lsBrds: MutableList<IntArray> = mutableListOf(intArrayOf(0, 0))
+    var listOfBorders: MutableList<IntArray> = mutableListOf(intArrayOf(0, 0))
 
     init {
 
-        lsBrds = readBrdsFromFile()
+        listOfBorders = readBrdsFromFile()
     }
 
     fun updateBrdsFromFile() {
-        lsBrds = readBrdsFromFile();
+        listOfBorders = readBrdsFromFile()
     }
 
     private fun readBrdsFromFile(): MutableList<IntArray> {
 
-        val brds: MutableList<IntArray> = mutableListOf()
+        // TODO: Sanitize input from file better against white spacing
+
+        val borders: MutableList<IntArray> = mutableListOf()
         val dump = File(pathToBrds).readLines()
 
         for (line in dump) {
 
-            val brd = intArrayOf(0, 0, 0, 0)
+            val border = intArrayOf(0, 0, 0, 0)
             val y = line.split(',')
 
             y.forEachIndexed { i, str ->
-                brd[i] = str.toInt()
+                border[i] = str.toInt()
             }
 
-            brds.add(element = brd)
+            borders.add(element = border)
 
         }
 
-        return brds
+        return borders
 
     }
 
@@ -54,18 +56,18 @@ class Events : Listener {
         if (event.block.world.environment == World.Environment.NORMAL) {
 
 
-            var outsideBrd = true
+            var outsideBorder = true
 
             // This right here sets a practical limit on how many areas can be defined, too many will result in to long loop time
-            for (brd in lsBrds) {
+            for (border in listOfBorders) {
 
-                if ((event.block.x > brd[0] && event.block.z > brd[1] && event.block.x < brd[2] && event.block.z < brd[3])) {
+                if ((event.block.x > border[0] && event.block.z > border[1] && event.block.x < border[2] && event.block.z < border[3])) {
 
-                    outsideBrd = false
+                    outsideBorder = false
                 }
             }
 
-            if (outsideBrd) {
+            if (outsideBorder) {
 
                 event.isDropItems = false
                 event.player.sendMessage(ChatColor.RED.toString().plus("You are breaking a block outside the border"))
