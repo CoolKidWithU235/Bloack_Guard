@@ -16,6 +16,14 @@ x<sub>1</sub>,z<sub>1</sub>,x<sub>2</sub>,z<sub>2</sub><br>
 Where x<sub>1</sub> < x<sub>2</sub> and z<sub>1</sub> < z<sub>2</sub>.
 Without any spaces, negative numbers can be represented by a negative sign(`-`)
 
+## Description
+In the `borders.brd` the user specifies the areas he wants to be considered un protected, the areas are rectangular and 
+specified as mentioned in Usage. the plugin first runs a check if the block is in the over-world and if so  it then 
+checks if the blocks coordinates fit inside the specified area or not. If so then the block may be broken but the item 
+drop is cancelled. Note that this also applies to player based blocks and there is no way to only have specific blocks 
+be affected (can always be added). The plugins intent was to limit the amount of resources me and my friends have access 
+to forcing us to make a sort of economy.
+
 ## Licencing
 
 Read LICENCE in root directory
